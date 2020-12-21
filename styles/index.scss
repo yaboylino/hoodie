@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400;700;900&display=swap");
+@tailwind base;
+
+/* Write your own custom base styles here */
+.backpic {
+  background: url("../public/img/hoodie.jpg");
+}
+.h1-title,
+.h2-title {
+  font-weight: 900;
+}
+.vh50 {
+  height: 50vh;
+}
+.bottom-200 {
+  position: absolute;
+  top: 200vh;
+}
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Catamaran", sans-serif;
+}
+
+/* Write your own custom component styles here */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
