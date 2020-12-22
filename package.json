@@ -1,6 +1,7 @@
 {
   "name": "with-tailwindcss",
   "version": "1.0.0",
+  "proxy": "https://hoodie.vercel.app/",
   "scripts": {
     "dev": "next",
     "build": "next build",

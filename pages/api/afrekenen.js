@@ -23,8 +23,8 @@ export default async (req, res) => {
           value: "499.00" // You must send the correct number of decimals, thus we enforce the use of strings
         },
         description: "My first payment",
-        redirectUrl: "http://mollie.vercel.app/api/webhook/?order=12345",
-        webhookUrl: "https://mollie.vercel.app/api/webhook/?order=12345",
+        redirectUrl: "https://hoodie.vercel.app/api/webhook/?order=12345",
+        webhookUrl: "https://hoodie.vercel.app/api/webhook/?order=12345",
         metadata: {
           order_id: "12345"
         }
@@ -36,7 +36,7 @@ export default async (req, res) => {
           order_id: "12345"
         })
         order.save()
-        res.redirect(payment._links.checkout.href)
+        res.send(payment)
       })
       .catch(error => {
         console.log(error)

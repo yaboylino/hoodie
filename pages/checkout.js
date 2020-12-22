@@ -64,16 +64,17 @@ const checkout = () => {
     console.log(gegevens)
     e.preventDefault()
     axios
-      .post("api/afrekenen/", {
+      .post("http://localhost:3000/api/afrekenen/", {
         method: "POST",
         headers: {
+          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json"
         },
         body: gegevens
       })
       .then(response => {
-        console.log(response.data._links.self.href)
-        if (response.data._links.self.href) {
+        console.log(response)
+        if (response.data._links.checkout.href) {
           router.push(response.data._links.checkout.href)
         }
       })
