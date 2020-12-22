@@ -14,9 +14,6 @@ const cors = initMiddleware(
 
 export default async (req, res) => {
   const mollieClient = createMollieClient({ apiKey: "test_rqn3c34qCVft6HmujerBTE9DvM3drW" })
-  const factuur = new Order({
-    
-  })
   await cors(req, res)
   try {
     const payment = await mollieClient.payments
