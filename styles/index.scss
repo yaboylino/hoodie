@@ -3,18 +3,21 @@
 
 /* Write your own custom base styles here */
 .backpic {
-  background: url("../public/img/hoodie.jpg");
+  background: url("../public/img/hoodieback.jpg");
 }
 .h1-title,
 .h2-title {
   font-weight: 900;
 }
-.vh50 {
-  height: 50vh;
+.vh80 {
+  height: 80vh;
 }
-.bottom-200 {
-  position: absolute;
-  top: 200vh;
+.vh90 {
+  height: 90vh;
+}
+
+div.w-full.-mt-6.pt-32.pb-24.px-12.text-center.bg-black.text-white > div > a {
+  padding-left: 10px;
 }
 
 /* Start purging... */

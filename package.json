@@ -8,14 +8,20 @@
     "export": "next build && next export"
   },
   "dependencies": {
-    "framer-motion": "^3.1.1",
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.8",
     "next": "latest",
+    "node-fetch": "^2.6.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-instagram-authless-feed": "jamesmoriarty/react-instagram-authless-feed",
     "react-instagram-embed": "^2.0.0",
     "sass": "^1.30.0"
   },
   "devDependencies": {
+    "@mollie/api-client": "^3.4.0",
     "autoprefixer": "10.0.2",
     "postcss": "8.1.7",
     "tailwindcss": "^2.0.1"

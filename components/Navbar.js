@@ -1,17 +1,12 @@
 import Link from "next/link"
 
-export default function Nav() {
+export default function Navbar() {
   return (
-    <nav className="flex flex-wrap items-center justify-between px-12 h-32 -mb-32 relative">
+    <nav className="container mx-auto w-screen flex flex-wrap items-center justify-between px-12 h-32 -mb-32 relative">
       <ul className="order-last md:order-first flex-1 flex justify-center md:justify-start list-reset">
         <li>
           <a href="#" className="text-sm text-grey-darker uppercase no-underline hover:text-black">
             Home
-          </a>
-        </li>
-        <li className="ml-8">
-          <a href="#" className="text-sm text-grey-darker uppercase no-underline hover:text-black">
-            About
           </a>
         </li>
         <li className="ml-8">
