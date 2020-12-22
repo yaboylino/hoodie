@@ -118,7 +118,7 @@ const product = () => {
         </div>
       </div>
 
-      <footer className="bg-black text-white text-center text-sm py-12 mt-40">
+      <footer className="bg-black text-white text-center text-sm py-12 md:mt-40 mt-80">
         <p>
           Copyright &copy; 2021 Big Ass Hoodies.{" "}
           <a className="underline" style={{ textDecorationColor: "white" }} href="https://www.weblord.dev">
