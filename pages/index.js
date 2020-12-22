@@ -39,7 +39,6 @@ export default function IndexPage() {
 
       <div className="w-full -mt-6 pt-32 pb-24 px-12 text-center bg-black text-white">
         <h2 className="text-4xl mb-6">FOLLOW US ON INSTAGRAM</h2>
-        <Feed url="https://hoodie.vercel.app" userName="bigasshoodies" className="Feed md:flex" classNameLoading="Loading" limit="3" />
         <h2 className="text-4xl mt-6">@BIGASSHOODIES</h2>
       </div>
 
