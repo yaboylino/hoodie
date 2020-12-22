@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-import CountryList from "../components/CountryList"
-import Layout from "../components/Layout"
 import Navbar from "../components/Navbar"
 import axios from "axios"
 import { useRouter } from "next/router"
@@ -81,11 +79,11 @@ const checkout = () => {
   }
 
   return (
-    <Layout>
+    <>
       <Navbar />
       <div className="container vh90 mx-auto mt-52">
-        <div className="flex shadow-md my-10">
-          <div className="w-3/4 bg-white px-10 py-10">
+        <div className="md:flex shadow-md my-10">
+          <div className="w-full md:w-3/4 bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">Shopping Cart</h1>
             </div>
@@ -129,49 +127,49 @@ const checkout = () => {
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6 sm:col-span-3">
                         <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
-                          First name
+                          First name *
                         </label>
                         <input type="text" value={gegevens.voornaam} onChange={e => setGegevens({ ...gegevens, voornaam: e.target.value })} required name="first_name" id="first_name" autoComplete="given-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6 sm:col-span-3">
                         <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
-                          Last name
+                          Last name *
                         </label>
                         <input type="text" value={gegevens.achternaam} onChange={e => setGegevens({ ...gegevens, achternaam: e.target.value })} required name="last_name" id="last_name" autoComplete="family-name" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">
-                          Email address
+                          Email address *
                         </label>
                         <input type="text" value={gegevens.email} onChange={e => setGegevens({ ...gegevens, email: e.target.value })} required name="email_address" id="email_address" autoComplete="email" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="street_address" className="block text-sm font-medium text-gray-700">
-                          Street address
+                          Street address *
                         </label>
                         <input type="text" value={gegevens.adres} onChange={e => setGegevens({ ...gegevens, adres: e.target.value })} required name="street_address" id="street_address" autoComplete="street-address" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6">
                         <label htmlFor="street_address" className="block text-sm font-medium text-gray-700">
-                          Phone
+                          Phone *
                         </label>
                         <input type="text" value={gegevens.telefoon} onChange={e => setGegevens({ ...gegevens, telefoon: e.target.value })} required name="phone" id="phone" autoComplete="phone" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6 sm:col-span-2 lg:col-span-2">
                         <label htmlFor="postal_code" className="block text-sm font-medium text-gray-700">
-                          ZIP / Postal
+                          ZIP / Postal *
                         </label>
                         <input type="text" value={gegevens.postcode} onChange={e => setGegevens({ ...gegevens, postcode: e.target.value })} required name="postal_code" id="postal_code" autoComplete="postal-code" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
 
                       <div className="col-span-6 sm:col-span-4 lg:col-span-4">
                         <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                          City
+                          City *
                         </label>
                         <input type="text" value={gegevens.stad} onChange={e => setGegevens({ ...gegevens, stad: e.target.value })} required name="city" id="city" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                       </div>
@@ -189,11 +187,11 @@ const checkout = () => {
             </form>
           </div>
 
-          <div id="summary" className="w-1/4 px-8 py-10">
+          <div id="summary" className="w-full md:w-1/4 px-8 py-10">
             <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
             <div className="flex justify-between mt-10 mb-5">
               <span className="font-semibold text-sm uppercase">Items {quantity}</span>
-              <span className="font-semibold text-sm">590$</span>
+              <span className="font-semibold text-sm">{total}</span>
             </div>
             <div>
               <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
@@ -222,7 +220,7 @@ const checkout = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 
