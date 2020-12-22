@@ -64,7 +64,7 @@ const checkout = () => {
     console.log(gegevens)
     e.preventDefault()
     axios
-      .post("http://localhost:3000/api/afrekenen/", {
+      .post("http://hoodie.vercel.app/api/afrekenen/", {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
