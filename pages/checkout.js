@@ -1,35 +1,35 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import Navbar from "../components/Navbar"
 import axios from "axios"
 import { useRouter } from "next/router"
 import fetch from "node-fetch"
+import Link from "next/link"
 
 const checkout = () => {
   const router = useRouter()
+  const freeshipping = 0
+  const dpdshipping = 5
   let [shipping, setShipping] = useState(5)
-  let [shippingText, setShippingText] = useState("DPD Shipping")
+  const shippingText = {
+    free: "Free shipping",
+    dpd: "DPD shipping"
+  }
   const price = 35.0
   const [quantity, setQuantity] = useState(1)
   const total = price * quantity
-  const [totalCost] = useState(total + shipping)
+  const [totalCost, setTotalCost] = useState("")
 
   function increment() {
     setQuantity(quantity + 1)
-    if (total => 50) {
-      setShippingText("Free shipping")
-      setShipping(0)
-    }
+    setGegevens({ quantity: quantity + 1, total: quantity * price })
   }
 
   function decrement() {
-    if (quantity === 0) {
+    if (quantity === 1) {
       return
     } else {
       setQuantity(quantity - 1)
-      if (total < 50.0) {
-        setShippingText("DPD Shipping")
-        setShipping(5.0)
-      }
+      setGegevens({ quantity: quantity - 1, total: quantity * price })
     }
   }
 
@@ -54,15 +54,14 @@ const checkout = () => {
     telefoon: "",
     land: "",
     email: "",
-    total: totalCost,
-    quantity
+    total: "",
+    quantity: ""
   })
 
   const handleSubmit = e => {
-    console.log(gegevens)
     e.preventDefault()
     axios
-      .post("https://hoodie.vercel.app/api/afrekenen/", {
+      .post("/api/afrekenen/", {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -71,7 +70,6 @@ const checkout = () => {
         body: gegevens
       })
       .then(response => {
-        console.log(response)
         if (response.data._links.checkout.href) {
           router.push(response.data._links.checkout.href)
         }
@@ -80,7 +78,53 @@ const checkout = () => {
 
   return (
     <>
-      <Navbar />
+      <nav className="bg-white shadow">
+        <div className="max-w-7xl py-6 mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="relative flex  justify-between h-16">
+            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+                <span className="sr-only">Open main menu</span>
+                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg className="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-between">
+              <Link href="/">
+                <div className="flex-shrink-0 flex items-center">
+                  <img className="block lg:hidden w-16" src="./logo.png" alt="Workflow" />
+                  <img className="hidden lg:block w-16" src="./logo.png" alt="Workflow" />
+                </div>
+              </Link>
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <Link href="/">
+                  <a className="border-transparent text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium font-bold">HOME</a>
+                </Link>
+                <Link href="/product">
+                  <a className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium font-bold">HOODIE</a>
+                </Link>
+                <Link href="/contact">
+                  <a className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium font-bold">CONTACT</a>
+                </Link>
+              </div>
+              <div>
+                <div className="ml-8 hidden md:inline-flex h-full items-center">
+                  <Link href="/checkout">
+                    <a className="text-sm font-bold px-4 py-3 no-underline text-white bg-black hover:bg-gray-300 hover:text-black rounded">Checkout</a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="ml-3 relative"></div>
+            </div>
+          </div>
+        </div>
+      </nav>
       <div className="container vh90 mx-auto mt-52">
         <div className="md:flex shadow-md my-10">
           <div className="w-full md:w-3/4 bg-white px-10 py-10">
@@ -102,12 +146,12 @@ const checkout = () => {
                   <span className="font-bold text-sm">Big Ass Hoodie</span>
                 </div>
               </div>
-              <div className="flex justify-center w-1/5">
+              <div className="flex justify-center items-center w-1/5">
                 <svg onClick={decrement} className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                   <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                 </svg>
 
-                <input onChange={e => setGegevens({ ...gegevens, quantity: e.target.value })} className="mx-2 border text-center w-8" type="text" value={quantity} />
+                <input value={quantity} onChange={e => setGegevens({ ...gegevens, quantity: e.target.value })} className="mx-2 border text-center w-8 h-8" type="text" />
 
                 <svg onClick={increment} className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                   <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
@@ -197,7 +241,7 @@ const checkout = () => {
               <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
               <select className="block p-2 text-gray-600 w-full text-sm">
                 <option>
-                  {shippingText} - €{shipping}
+                  {total > 50 ? shippingText.free : shippingText.dpd} - €{total > 50 ? freeshipping : dpdshipping}
                 </option>
               </select>
             </div>
@@ -211,7 +255,8 @@ const checkout = () => {
             <div className="border-t mt-8">
               <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                 <span>Total cost</span>
-                <span>€{totalCost}</span>
+                <span>€ </span>
+                <span>{(total > 50 ? freeshipping : dpdshipping) + total}</span>
               </div>
               <button onClick={handleSubmit} className="bg-black font-semibold hover:bg-gray-400 py-3 text-sm text-white uppercase w-full">
                 Checkout

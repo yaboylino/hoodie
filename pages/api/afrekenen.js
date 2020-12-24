@@ -13,27 +13,34 @@ const cors = initMiddleware(
 )
 
 export default async (req, res) => {
+  const factuurnummer = await Order.count((error, data) => {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(data)
+    }
+  })
   const mollieClient = createMollieClient({ apiKey: "test_rqn3c34qCVft6HmujerBTE9DvM3drW" })
   await cors(req, res)
+
   try {
     const payment = await mollieClient.payments
       .create({
         amount: {
           currency: "EUR",
-          value: "499.00" // You must send the correct number of decimals, thus we enforce the use of strings
+          value: "44.00" // You must send the correct number of decimals, thus we enforce the use of strings
         },
-        description: "My first payment",
-        redirectUrl: "https://hoodie.vercel.app/api/webhook/?order=12345",
-        webhookUrl: "https://hoodie.vercel.app/api/webhook/?order=12345",
+        description: "Big Ass Hoodie",
+        redirectUrl: `https://hoodie.vercel.app/api/webhook/?order=${parseInt(factuurnummer) + 1}`,
+        webhookUrl: `https://hoodie.vercel.app/api/webhook/?order=${parseInt(factuurnummer) + 1}`,
         metadata: {
-          order_id: "12345"
+          order_id: parseInt(factuurnummer) + 1
         }
       })
       .then(payment => {
-        console.log(payment)
         const order = new Order({
           order: payment.id,
-          order_id: "12345"
+          order_id: parseInt(factuurnummer) + 1
         })
         order.save()
         res.send(payment)

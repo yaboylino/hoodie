@@ -15,9 +15,9 @@ export default async (req, res) => {
     const isPaid = payment.isPaid()
 
     if (isPaid) {
-      res.redirect("https://mollie.vercel.app/betaald")
+      res.redirect("https://hoodie.vercel.app/betaald")
     } else {
-      res.redirect("https://mollie.vercel.app/verlopen")
+      res.redirect("https://hoodie.vercel.app/verlopen")
     }
   } catch (error) {
     console.warn(error)
