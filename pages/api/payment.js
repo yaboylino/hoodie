@@ -22,15 +22,17 @@ export default async (req, res) => {
   })
   const mollieClient = createMollieClient({ apiKey: "test_rqn3c34qCVft6HmujerBTE9DvM3drW" })
   await cors(req, res)
+  const orderlist = req.body.body
+  console.log(orderlist)
 
   try {
     const payment = await mollieClient.payments
       .create({
         amount: {
           currency: "EUR",
-          value: "44.00" // You must send the correct number of decimals, thus we enforce the use of strings
+          value: String(orderlist.total.toFixed(2)) // You must send the correct number of decimals, thus we enforce the use of strings
         },
-        description: "Big Ass Hoodie",
+        description: `${orderlist.quantity} x BIG ASS HOODIE`,
         redirectUrl: `https://hoodie.vercel.app/api/webhook/?order=${parseInt(factuurnummer) + 1}`,
         webhookUrl: `https://hoodie.vercel.app/api/webhook/?order=${parseInt(factuurnummer) + 1}`,
         metadata: {
@@ -39,8 +41,18 @@ export default async (req, res) => {
       })
       .then(payment => {
         const order = new Order({
+          firstname: orderlist.voornaam,
+          lastname: orderlist.achternaam,
+          address: orderlist.adres,
+          postal: orderlist.postcode,
+          city: orderlist.stad,
+          country: orderlist.land,
+          telephone: orderlist.telefoon,
+          email: orderlist.email,
           order: payment.id,
-          order_id: parseInt(factuurnummer) + 1
+          order_id: parseInt(factuurnummer) + 1,
+          total: orderlist.total,
+          quantity: orderlist.quantity
         })
         order.save()
         res.send(payment)
